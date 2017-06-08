@@ -1,4 +1,4 @@
-# Tetromino for Idiots
+# Tetromino (a Tetris clone)
 # By Al Sweigart al@inventwithpython.com
 # http://inventwithpython.com/pygame
 # Released under a "Simplified BSD" license
@@ -44,13 +44,115 @@ assert len(COLORS) == len(LIGHTCOLORS) # each color must have light color
 TEMPLATEWIDTH = 5
 TEMPLATEHEIGHT = 5
 
-SHAPE_TEMPLATE = [['.....',
-                   '.....',
-                   '..O..',
-                   '.....',
-                   '.....']]
+S_SHAPE_TEMPLATE = [['.....',
+                     '.....',
+                     '..OO.',
+                     '.OO..',
+                     '.....'],
+                    ['.....',
+                     '..O..',
+                     '..OO.',
+                     '...O.',
+                     '.....']]
 
-PIECES = {'A': SHAPE_TEMPLATE}
+Z_SHAPE_TEMPLATE = [['.....',
+                     '.....',
+                     '.OO..',
+                     '..OO.',
+                     '.....'],
+                    ['.....',
+                     '..O..',
+                     '.OO..',
+                     '.O...',
+                     '.....']]
+
+I_SHAPE_TEMPLATE = [['..O..',
+                     '..O..',
+                     '..O..',
+                     '..O..',
+                     '.....'],
+                    ['.....',
+                     '.....',
+                     'OOOO.',
+                     '.....',
+                     '.....']]
+
+O_SHAPE_TEMPLATE = [['.....',
+                     '.....',
+                     '.OO..',
+                     '.OO..',
+                     '.....']]
+
+J_SHAPE_TEMPLATE = [['.....',
+                     '.O...',
+                     '.OOO.',
+                     '.....',
+                     '.....'],
+                    ['.....',
+                     '..OO.',
+                     '..O..',
+                     '..O..',
+                     '.....'],
+                    ['.....',
+                     '.....',
+                     '.OOO.',
+                     '...O.',
+                     '.....'],
+                    ['.....',
+                     '..O..',
+                     '..O..',
+                     '.OO..',
+                     '.....']]
+
+L_SHAPE_TEMPLATE = [['.....',
+                     '...O.',
+                     '.OOO.',
+                     '.....',
+                     '.....'],
+                    ['.....',
+                     '..O..',
+                     '..O..',
+                     '..OO.',
+                     '.....'],
+                    ['.....',
+                     '.....',
+                     '.OOO.',
+                     '.O...',
+                     '.....'],
+                    ['.....',
+                     '.OO..',
+                     '..O..',
+                     '..O..',
+                     '.....']]
+
+T_SHAPE_TEMPLATE = [['.....',
+                     '..O..',
+                     '.OOO.',
+                     '.....',
+                     '.....'],
+                    ['.....',
+                     '..O..',
+                     '..OO.',
+                     '..O..',
+                     '.....'],
+                    ['.....',
+                     '.....',
+                     '.OOO.',
+                     '..O..',
+                     '.....'],
+                    ['.....',
+                     '..O..',
+                     '.OO..',
+                     '..O..',
+                     '.....']]
+
+PIECES = {'S': S_SHAPE_TEMPLATE,
+          'Z': Z_SHAPE_TEMPLATE,
+          'J': J_SHAPE_TEMPLATE,
+          'L': L_SHAPE_TEMPLATE,
+          'I': I_SHAPE_TEMPLATE,
+          'O': O_SHAPE_TEMPLATE,
+          'T': T_SHAPE_TEMPLATE}
 
 
 def main():
@@ -59,10 +161,10 @@ def main():
     FPSCLOCK = pygame.time.Clock()
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
-    BIGFONT = pygame.font.Font('freesansbold.ttf', 60)
-    pygame.display.set_caption('Tetromino for Idiots')
+    BIGFONT = pygame.font.Font('freesansbold.ttf', 100)
+    pygame.display.set_caption('Tetromino')
 
-    showTextScreen('Tetromino for Idiots')
+    showTextScreen('Tetromino')
     while True: # game loop
         if random.randint(0, 1) == 0:
             pygame.mixer.music.load('tetrisb.mid')
@@ -229,7 +331,7 @@ def showTextScreen(text):
 
     # Draw the text
     titleSurf, titleRect = makeTextObjs(text, BIGFONT, TEXTCOLOR)
-    titleRect.center = (int(WINDOWWIDTH / 2) - 2, int(WINDOWHEIGHT / 2) - 2)
+    titleRect.center = (int(WINDOWWIDTH / 2) - 3, int(WINDOWHEIGHT / 2) - 3)
     DISPLAYSURF.blit(titleSurf, titleRect)
 
     # Draw the additional "Press a key to play." text.
