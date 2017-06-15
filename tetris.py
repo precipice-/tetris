@@ -15,8 +15,8 @@ colors = [
 (255, 140, 50 ),
 (50,  120, 52 ),
 (146, 202, 73 ),
-(150, 161, 218 ),
-(35,  35,  35) # Helper color for background grid
+(150, 161, 218),
+(35,  177, 200) # Helper color for background grid
 ]
 
 tetris_shapes = [
@@ -86,10 +86,7 @@ class TetrisApp(object):
 			pygame.font.get_default_font(), 12)
 		
 		self.screen = pygame.display.set_mode((self.width, self.height))
-		pygame.event.set_blocked(pygame.MOUSEMOTION) # We do not need
-		                                             # mouse movement
-		                                             # events, so we
-		                                             # block them.
+		pygame.event.set_blocked(pygame.MOUSEMOTION)
 		self.next_stone = tetris_shapes[rand(len(tetris_shapes))]
 		self.init_game()
 	
@@ -103,17 +100,17 @@ class TetrisApp(object):
 			self.gameover = True
 	
 	def init_game(self):
-		if random.randint(0, 1) == 0:
-            pygame.mixer.music.load('tetrisb.mid')
-        else:
-            pygame.mixer.music.load('tetrisc.mid')
-        pygame.mixer.music.play(-1, 0.0)
 		self.board = new_board()
 		self.new_stone()
 		self.level = 1
 		self.score = 0
 		self.lines = 0
 		pygame.time.set_timer(pygame.USEREVENT+1, 1000)
+		if rand(0, 1) == 0:
+			pygame.mixer.music.load('tetrisc.mid')
+		else:
+			pygame.mixer.music.load('tetrisb.mid')
+		pygame.mixer.music.play(-1, 0.0)
 	
 	def disp_msg(self, msg, topleft):
 		x,y = topleft
